@@ -1,0 +1,18 @@
+FROM nvcr.io/nvidia/tensorflow:23.08-tf2-py3
+
+MAINTAINER Samia Mohinta "sm2667@cam.ac.uk"
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
+    graphviz \
+    ffmpeg \
+    libsm6 \
+    libxext6
+
+# Copy BiaPy
+RUN git clone --depth 1 https://github.com/Mohinta2892/BiaPy.git /installations/BiaPy
+
+RUN cd /installations/BiaPy/ && python -m pip install --editable .
+
+#python main.py --config /installations/BiaPy/templates/semantic_segmentation/2d_semantic_segmentation.yaml --result_dir /#mnt/mito-data --name resunet_2d_mito_lucchi --run_id 1 --gpu 0
+
